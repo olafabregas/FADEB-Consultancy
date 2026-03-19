@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
   const navigate = useNavigate();
+  const [copiedPhone, setCopiedPhone] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -16,6 +17,12 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const copyToClipboard = (phone) => {
+    navigator.clipboard.writeText(phone);
+    setCopiedPhone(phone);
+    setTimeout(() => setCopiedPhone(null), 2000);
   };
 
   const handleSubmit = (e) => {
@@ -92,11 +99,20 @@ export default function Contact() {
           {/* Contact Cards with Glassmorphism */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-20">
             {/* Address Card - Both Locations */}
-            <div className="group relative">
-              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+            <div
+              className="group relative"
+              style={{ animation: "slideInLeft 0.6s ease-out 0.2s both" }}
+            >
+              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden">
+                {/* Left Color Bar - Primary */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary to-primary-fixed"></div>
+
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
                 <div className="relative z-10">
-                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary">
+                  <div
+                    className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary group-hover:scale-110 transition-transform duration-300"
+                    style={{ animation: "float 3s ease-in-out infinite" }}
+                  >
                     <span className="material-symbols-outlined text-3xl">
                       location_on
                     </span>
@@ -139,11 +155,20 @@ export default function Contact() {
             </div>
 
             {/* Phone Card - Bigger */}
-            <div className="group relative md:col-span-1">
-              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 h-full flex flex-col">
+            <div
+              className="group relative md:col-span-1"
+              style={{ animation: "slideInLeft 0.6s ease-out 0.4s both" }}
+            >
+              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 h-full flex flex-col overflow-hidden">
+                {/* Left Color Bar - Secondary */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-secondary to-primary-fixed"></div>
+
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
                 <div className="relative z-10 flex flex-col h-full">
-                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary w-fit">
+                  <div
+                    className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary w-fit group-hover:scale-110 transition-transform duration-300"
+                    style={{ animation: "float 3s ease-in-out infinite 0.1s" }}
+                  >
                     <span className="material-symbols-outlined text-3xl">
                       phone
                     </span>
@@ -152,29 +177,70 @@ export default function Contact() {
                     Call Us
                   </h3>
                   <div className="space-y-4 flex-grow flex flex-col justify-center">
-                    <a
-                      href="tel:+2347060622264"
-                      className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg"
-                    >
-                      +234 706-062-2264
-                    </a>
-                    <a
-                      href="tel:+2348034871326"
-                      className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg"
-                    >
-                      +234 803-487-1326
-                    </a>
+                    <div className="relative group/phone">
+                      <a
+                        href="tel:+2347060622264"
+                        className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg flex items-center justify-between group/link"
+                      >
+                        <span>+234 706-062-2264</span>
+                        <span
+                          className="material-symbols-outlined text-lg opacity-0 group-hover/link:opacity-100 transition-opacity cursor-pointer hover:text-primary"
+                          onClick={() => copyToClipboard("+2347060622264")}
+                          title="Copy to clipboard"
+                        >
+                          {copiedPhone === "+2347060622264"
+                            ? "check"
+                            : "content_copy"}
+                        </span>
+                      </a>
+                      {copiedPhone === "+2347060622264" && (
+                        <span className="text-xs text-primary mt-1 block">
+                          Copied!
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative group/phone">
+                      <a
+                        href="tel:+2348034871326"
+                        className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg flex items-center justify-between group/link"
+                      >
+                        <span>+234 803-487-1326</span>
+                        <span
+                          className="material-symbols-outlined text-lg opacity-0 group-hover/link:opacity-100 transition-opacity cursor-pointer hover:text-primary"
+                          onClick={() => copyToClipboard("+2348034871326")}
+                          title="Copy to clipboard"
+                        >
+                          {copiedPhone === "+2348034871326"
+                            ? "check"
+                            : "content_copy"}
+                        </span>
+                      </a>
+                      {copiedPhone === "+2348034871326" && (
+                        <span className="text-xs text-primary mt-1 block">
+                          Copied!
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Email Card */}
-            <div className="group relative">
-              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+            <div
+              className="group relative"
+              style={{ animation: "slideInLeft 0.6s ease-out 0.6s both" }}
+            >
+              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden">
+                {/* Left Color Bar - Tertiary */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-tertiary to-primary"></div>
+
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
                 <div className="relative z-10">
-                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary">
+                  <div
+                    className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary group-hover:scale-110 transition-transform duration-300"
+                    style={{ animation: "float 3s ease-in-out infinite 0.2s" }}
+                  >
                     <span className="material-symbols-outlined text-3xl">
                       mail
                     </span>
