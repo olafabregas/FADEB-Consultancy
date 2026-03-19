@@ -46,7 +46,7 @@ export default function Navbar() {
             </svg>
           </div>
           <h1 className="font-headline font-black text-xl tracking-tight text-on-surface">
-            Fadeb Consultancy
+            Fadeb Consultancy Services
           </h1>
         </Link>
 

@@ -121,20 +121,6 @@ export default function Contact() {
                     Locations
                   </h3>
                   <div className="space-y-6">
-                    <div>
-                      <p className="text-on-surface-variant leading-relaxed">
-                        <strong className="text-on-surface block mb-2">
-                          Ilorin Office
-                        </strong>
-                        134, Stadium Road
-                        <br />
-                        Taiwo Ilorin, Kwara State
-                        <br />
-                        <span className="text-primary font-semibold">
-                          Nigeria
-                        </span>
-                      </p>
-                    </div>
                     <div className="border-t border-primary/20 pt-6">
                       <p className="text-on-surface-variant leading-relaxed">
                         <strong className="text-on-surface block mb-2">
@@ -143,6 +129,20 @@ export default function Contact() {
                         109B Browns Road
                         <br />
                         Aguda, Surulere, Lagos
+                        <br />
+                        <span className="text-primary font-semibold">
+                          Nigeria
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-on-surface-variant leading-relaxed">
+                        <strong className="text-on-surface block mb-2">
+                          Ilorin Office
+                        </strong>
+                        134, Stadium Road
+                        <br />
+                        Taiwo Ilorin, Kwara State
                         <br />
                         <span className="text-primary font-semibold">
                           Nigeria

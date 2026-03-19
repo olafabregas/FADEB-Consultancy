@@ -160,8 +160,8 @@ export default function Footer() {
                 location_on
               </span>
               <div>
-                <p>134, Stadium Road, Taiwo Ilorin, Kwara State</p>
                 <p className="mt-2">109B Browns Road, Aguda, Surulere, Lagos</p>
+                <p>134, Stadium Road, Taiwo Ilorin, Kwara State</p>
               </div>
             </li>
             <li className="flex items-center gap-3">
@@ -191,7 +191,13 @@ export default function Footer() {
                 href="tel:+2347060622264"
                 className="hover:text-primary transition-colors"
               >
-                +234 (0) 706-062-2264
+                +234 706-062-2264
+              </a>
+              <a
+                href="tel:+2348034871326"
+                className="hover:text-primary transition-colors"
+              >
+                +234 803-487-1326
               </a>
             </li>
           </ul>
@@ -199,7 +205,7 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs opacity-50 font-label uppercase tracking-widest">
-        <p>© 2024 Fadeb Consultancy Services. All Rights Reserved.</p>
+        <p>© 2026 Fadeb Consultancy Services. All Rights Reserved.</p>
         <p>Designed with Intentional Elegance</p>
       </div>
     </footer>
