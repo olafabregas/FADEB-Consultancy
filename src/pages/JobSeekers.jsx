@@ -24,6 +24,7 @@ export default function JobSeekers() {
     const formElement = e.target;
     const fileInput = formElement.querySelector('input[name="cvFile"]');
 
+    // For file uploads, use FormData but with proper error handling
     const data = new FormData();
     data.append(
       "fullName",
@@ -45,10 +46,17 @@ export default function JobSeekers() {
       method: "POST",
       body: data,
     })
-      .then(() => {
-        navigate("/thank-you");
+      .then((response) => {
+        if (response.ok) {
+          navigate("/thank-you");
+        } else {
+          alert("Error submitting CV. Please try again.");
+        }
       })
-      .catch(() => alert("Error submitting CV. Please try again."));
+      .catch((error) => {
+        console.error("CV Form error:", error);
+        alert("Error submitting CV. Please try again.");
+      });
   };
 
   return (

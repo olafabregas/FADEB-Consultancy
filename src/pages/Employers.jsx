@@ -8,18 +8,29 @@ export default function Employers() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = new FormData();
-    data.append("company", form.querySelector('input[name="company"]').value);
-    data.append("email", form.querySelector('input[name="email"]').value);
+    const data = JSON.stringify({
+      company: form.querySelector('input[name="company"]').value,
+      email: form.querySelector('input[name="email"]').value,
+    });
 
     fetch("https://formspree.io/f/mwvryldn", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: data,
     })
-      .then(() => {
-        navigate("/thank-you");
+      .then((response) => {
+        if (response.ok) {
+          navigate("/thank-you");
+        } else {
+          alert("Error submitting form. Please try again.");
+        }
       })
-      .catch(() => alert("Error submitting form. Please try again."));
+      .catch((error) => {
+        console.error("Form error:", error);
+        alert("Error submitting form. Please try again.");
+      });
   };
 
   return (

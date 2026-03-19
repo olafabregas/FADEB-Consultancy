@@ -20,23 +20,32 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const formElements = form.elements;
-    const data = new FormData();
-    data.append("fullName", formElements["fullName"].value);
-    data.append("email", formElements["email"].value);
-    data.append("phone", formElements["phone"].value);
-    data.append("subject", formElements["subject"].value);
-    data.append("message", formElements["message"].value);
+    const data = JSON.stringify({
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+    });
 
     fetch("https://formspree.io/f/mwvryldn", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: data,
     })
-      .then(() => {
-        navigate("/thank-you");
+      .then((response) => {
+        if (response.ok) {
+          navigate("/thank-you");
+        } else {
+          alert("Error sending message. Please try again.");
+        }
       })
-      .catch(() => alert("Error sending message. Please try again."));
+      .catch((error) => {
+        console.error("Form error:", error);
+        alert("Error sending message. Please try again.");
+      });
   };
 
   return (
@@ -81,8 +90,8 @@ export default function Contact() {
       <section className="py-12 px-6 lg:px-40 bg-surface relative">
         <div className="max-w-7xl mx-auto">
           {/* Contact Cards with Glassmorphism */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-            {/* Address Card 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-20">
+            {/* Address Card - Both Locations */}
             <div className="group relative">
               <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
@@ -92,77 +101,66 @@ export default function Contact() {
                       location_on
                     </span>
                   </div>
-                  <h3 className="font-headline text-2xl font-bold mb-4 text-on-surface">
-                    Location
+                  <h3 className="font-headline text-2xl font-bold mb-6 text-on-surface">
+                    Locations
                   </h3>
-                  <p className="text-on-surface-variant leading-relaxed">
-                    <strong className="text-on-surface">
-                      Fadeb Consultancy
-                    </strong>
-                    <br />
-                    134, Stadium Road
-                    <br />
-                    Taiwo Ilorin, Kwara State
-                    <br />
-                    <span className="text-primary font-semibold">Nigeria</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Address Card 2 */}
-            <div className="group relative">
-              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
-                <div className="relative z-10">
-                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary">
-                    <span className="material-symbols-outlined text-3xl">
-                      location_on
-                    </span>
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-on-surface-variant leading-relaxed">
+                        <strong className="text-on-surface block mb-2">
+                          Ilorin Office
+                        </strong>
+                        134, Stadium Road
+                        <br />
+                        Taiwo Ilorin, Kwara State
+                        <br />
+                        <span className="text-primary font-semibold">
+                          Nigeria
+                        </span>
+                      </p>
+                    </div>
+                    <div className="border-t border-primary/20 pt-6">
+                      <p className="text-on-surface-variant leading-relaxed">
+                        <strong className="text-on-surface block mb-2">
+                          Lagos Office
+                        </strong>
+                        109B Browns Road
+                        <br />
+                        Aguda, Surulere, Lagos
+                        <br />
+                        <span className="text-primary font-semibold">
+                          Nigeria
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-headline text-2xl font-bold mb-4 text-on-surface">
-                    Location
-                  </h3>
-                  <p className="text-on-surface-variant leading-relaxed">
-                    <strong className="text-on-surface">
-                      Fadeb Consultancy
-                    </strong>
-                    <br />
-                    109B Browns Road
-                    <br />
-                    Aguda, Surulere, Lagos
-                    <br />
-                    <span className="text-primary font-semibold">Nigeria</span>
-                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Phone Card */}
-            <div className="group relative">
-              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+            {/* Phone Card - Bigger */}
+            <div className="group relative md:col-span-1">
+              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 h-full flex flex-col">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
-                <div className="relative z-10">
-                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary">
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary w-fit">
                     <span className="material-symbols-outlined text-3xl">
                       phone
                     </span>
                   </div>
-                  <h3 className="font-headline text-2xl font-bold mb-4 text-on-surface">
+                  <h3 className="font-headline text-2xl font-bold mb-6 text-on-surface">
                     Call Us
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-4 flex-grow flex flex-col justify-center">
                     <a
                       href="tel:+2347060622264"
-                      className="block text-on-surface-variant hover:text-primary transition-colors font-semibold"
+                      className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg"
                     >
                       +234 706-062-2264
                     </a>
-                  </div>
-                  <div className="space-y-3">
                     <a
                       href="tel:+2348034871326"
-                      className="block text-on-surface-variant hover:text-primary transition-colors font-semibold"
+                      className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-lg"
                     >
                       +234 803-487-1326
                     </a>
