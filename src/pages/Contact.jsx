@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -18,7 +20,23 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    const form = e.target;
+    const formElements = form.elements;
+    const data = new FormData();
+    data.append("fullName", formElements["fullName"].value);
+    data.append("email", formElements["email"].value);
+    data.append("phone", formElements["phone"].value);
+    data.append("subject", formElements["subject"].value);
+    data.append("message", formElements["message"].value);
+
+    fetch("https://formspree.io/f/mwvryldn", {
+      method: "POST",
+      body: data,
+    })
+      .then(() => {
+        navigate("/thank-you");
+      })
+      .catch(() => alert("Error sending message. Please try again."));
   };
 
   return (
@@ -63,8 +81,8 @@ export default function Contact() {
       <section className="py-12 px-6 lg:px-40 bg-surface relative">
         <div className="max-w-7xl mx-auto">
           {/* Contact Cards with Glassmorphism */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            {/* Address Card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+            {/* Address Card 1 */}
             <div className="group relative">
               <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
@@ -92,6 +110,34 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Address Card 2 */}
+            <div className="group relative">
+              <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/30 transition-all"></div>
+                <div className="relative z-10">
+                  <div className="inline-block p-4 bg-gradient-to-br from-primary to-primary-fixed rounded-2xl mb-6 text-on-primary">
+                    <span className="material-symbols-outlined text-3xl">
+                      location_on
+                    </span>
+                  </div>
+                  <h3 className="font-headline text-2xl font-bold mb-4 text-on-surface">
+                    Location
+                  </h3>
+                  <p className="text-on-surface-variant leading-relaxed">
+                    <strong className="text-on-surface">
+                      Fadeb Consultancy
+                    </strong>
+                    <br />
+                    109B Browns Road
+                    <br />
+                    Aguda, Surulere, Lagos
+                    <br />
+                    <span className="text-primary font-semibold">Nigeria</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Phone Card */}
             <div className="group relative">
               <div className="backdrop-blur-2xl bg-gradient-to-br from-white/20 to-white/10 border border-primary/50 rounded-3xl p-8 hover:border-primary/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
@@ -110,7 +156,15 @@ export default function Contact() {
                       href="tel:+2347060622264"
                       className="block text-on-surface-variant hover:text-primary transition-colors font-semibold"
                     >
-                      +234 (0) 706-062-2264
+                      +234 706-062-2264
+                    </a>
+                  </div>
+                  <div className="space-y-3">
+                    <a
+                      href="tel:+2348034871326"
+                      className="block text-on-surface-variant hover:text-primary transition-colors font-semibold"
+                    >
+                      +234 803-487-1326
                     </a>
                   </div>
                 </div>
@@ -130,12 +184,20 @@ export default function Contact() {
                   <h3 className="font-headline text-2xl font-bold mb-4 text-on-surface">
                     Email
                   </h3>
-                  <a
-                    href="mailto:info@fadebconsultingservices.com"
-                    className="text-sm text-on-surface-variant hover:text-primary transition-colors font-semibold break-all"
-                  >
-                    info@fadebconsultingservices.com
-                  </a>
+                  <div className="space-y-3">
+                    <a
+                      href="mailto:info@fadebconsultingservices.com"
+                      className="text-sm text-on-surface-variant hover:text-primary transition-colors font-semibold break-all block"
+                    >
+                      info@fadebconsultingservices.com
+                    </a>
+                    <a
+                      href="mailto:hr@fadebconsultancyservices.com"
+                      className="text-sm text-on-surface-variant hover:text-primary transition-colors font-semibold break-all block"
+                    >
+                      hr@fadebconsultancyservices.com
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

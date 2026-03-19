@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function JobSeekers() {
+  const navigate = useNavigate();
   const [cvFormData, setCvFormData] = useState({
     fullName: "",
     email: "",
@@ -20,7 +21,34 @@ export default function JobSeekers() {
 
   const handleCvSubmit = (e) => {
     e.preventDefault();
-    console.log("CV Form:", cvFormData);
+    const formElement = e.target;
+    const fileInput = formElement.querySelector('input[name="cvFile"]');
+
+    const data = new FormData();
+    data.append(
+      "fullName",
+      formElement.querySelector('input[name="fullName"]').value,
+    );
+    data.append(
+      "email",
+      formElement.querySelector('input[name="email"]').value,
+    );
+    data.append(
+      "phone",
+      formElement.querySelector('input[name="phone"]').value,
+    );
+    if (fileInput.files[0]) {
+      data.append("cvFile", fileInput.files[0]);
+    }
+
+    fetch("https://formspree.io/f/mwvryldn", {
+      method: "POST",
+      body: data,
+    })
+      .then(() => {
+        navigate("/thank-you");
+      })
+      .catch(() => alert("Error submitting CV. Please try again."));
   };
 
   return (

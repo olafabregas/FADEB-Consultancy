@@ -11,6 +11,8 @@ import JobSeekers from "./pages/JobSeekers";
 import Contact from "./pages/Contact";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import ThankYou from "./pages/ThankYou";
+import NotFound from "./pages/NotFound";
 import "./index.css";
 
 export default function App() {
@@ -29,6 +31,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />

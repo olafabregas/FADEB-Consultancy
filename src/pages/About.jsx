@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function About() {
-  const [openPanel, setOpenPanel] = useState(0);
+  const [openPanel, setOpenPanel] = useState(-1);
 
   const togglePanel = (index) => {
     setOpenPanel(openPanel === index ? -1 : index);

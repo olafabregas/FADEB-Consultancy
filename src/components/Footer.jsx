@@ -29,26 +29,6 @@ export default function Footer() {
             Pioneering the future of talent acquisition and organizational
             growth through human-centric design.
           </p>
-          <div className="flex gap-4">
-            <a
-              href="#"
-              aria-label="Website"
-              className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors hover:scale-110 hover:-translate-y-1"
-              data-tooltip="Visit Website"
-            >
-              <span className="material-symbols-outlined text-sm">public</span>
-            </a>
-            <a
-              href="#"
-              aria-label="Email"
-              className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors hover:scale-110 hover:-translate-y-1"
-              data-tooltip="Send Email"
-            >
-              <span className="material-symbols-outlined text-sm">
-                alternate_email
-              </span>
-            </a>
-          </div>
         </div>
 
         {/* Col 2: Quick Links */}
@@ -179,18 +159,29 @@ export default function Footer() {
               <span className="material-symbols-outlined text-primary-fixed shrink-0 mt-0.5">
                 location_on
               </span>
-              134, Stadium Road, Taiwo Ilorin, Kwara State
+              <div>
+                <p>134, Stadium Road, Taiwo Ilorin, Kwara State</p>
+                <p className="mt-2">109B Browns Road, Aguda, Surulere, Lagos</p>
+              </div>
             </li>
             <li className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary-fixed shrink-0">
                 mail
               </span>
-              <a
-                href="mailto:info@fadebconsultingservices.com"
-                className="hover:text-primary transition-colors break-all"
-              >
-                info@fadebconsultingservices.com
-              </a>
+              <div>
+                <a
+                  href="mailto:info@fadebconsultingservices.com"
+                  className="hover:text-primary transition-colors break-all block"
+                >
+                  info@fadebconsultingservices.com
+                </a>
+                <a
+                  href="mailto:hr@fadebconsultancyservices.com"
+                  className="hover:text-primary transition-colors break-all block"
+                >
+                  hr@fadebconsultancyservices.com
+                </a>
+              </div>
             </li>
             <li className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary-fixed shrink-0">

@@ -1,8 +1,26 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Employers() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ company: "", email: "" });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData();
+    data.append("company", form.querySelector('input[name="company"]').value);
+    data.append("email", form.querySelector('input[name="email"]').value);
+
+    fetch("https://formspree.io/f/mwvryldn", {
+      method: "POST",
+      body: data,
+    })
+      .then(() => {
+        navigate("/thank-you");
+      })
+      .catch(() => alert("Error submitting form. Please try again."));
+  };
 
   return (
     <div className="min-h-screen bg-surface">
@@ -143,7 +161,7 @@ export default function Employers() {
               Access our pool of vetted talent and start building your dream
               team today. It takes less than 2 minutes to create your profile.
             </p>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
                   type="text"
